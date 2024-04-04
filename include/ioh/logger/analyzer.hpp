@@ -355,8 +355,7 @@ namespace ioh::logger
 
                 void guard_attributes(const std::function<void()> &f)
                 {
-                    if (!has_started_)
-                        return f();
+                    return f();
                     IOH_DBG(warning, "cannot change attributes after experiment has started")
                 }
 

@@ -273,11 +273,13 @@ namespace ioh {
             {
                 IOH_DBG(debug,"watch property " << property.name())
                 // Assert that the Property is not already tracked.
-                assert(std::find_if(std::begin(properties_),std::end(properties_),
+                if(std::find_if(std::begin(properties_),std::end(properties_),
                                     [&property](const auto rwp){return property.name() == rwp.second.get().name();}
-                                   ) == std::end(properties_));
-                properties_.insert_or_assign(property.name(), property);
-                properties_vector_.push_back(property);
+                                   ) == std::end(properties_))
+                {
+                    properties_.insert_or_assign(property.name(), property);
+                    properties_vector_.push_back(property);
+                }
                 assert(consistent_properties()); // Double check duplicates, in case the code above would be changed.
             }
 
